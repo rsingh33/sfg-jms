@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
@@ -21,6 +22,7 @@ public class HelloSender {
         System.out.println("Sending out a message after every 2 seconds " + LocalTime.now());
         HelloMessage message = HelloMessage
                 .builder()
+                .id(UUID.randomUUID())
                 .message("Sherlock Holmes 223 G Baker Street London" ).build();
         jmsTemplate.convertAndSend(JMSConfig.MY_QUEUE, message);
         System.out.println("Message sent to Queue!");
